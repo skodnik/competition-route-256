@@ -48,14 +48,11 @@ for ($i = 0; $i < $testCaseCount; $i++) {
 
 function getDateTime(string $time): int
 {
-    $dateTime = DateTimeImmutable::createFromFormat(
-        'Y.m.d H:i:s',
-        '1970.01.01 ' . $time
-    );
+    [$h, $m, $s] = explode(':', $time);
 
-    if ($time !== $dateTime->format('H:i:s')) {
-        throw new InvalidArgumentException('Invalid time!');
+    if ($h >= 0 && $h < 24 && $m >= 0 && $m < 60 && $s >= 0 && $s < 60) {
+        return ((int)$h * 60 * 60) + ((int)$m * 60) + (int)$s;
     }
 
-    return $dateTime->getTimestamp();
+    throw new InvalidArgumentException('Invalid time!');
 }
