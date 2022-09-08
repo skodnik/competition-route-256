@@ -18,8 +18,8 @@ for ($i = 0; $i < $testCaseCount; $i++) {
         }
 
         try {
-            $from = getDateTime($timeIntervalFrom);
-            $to = getDateTime($timeIntervalTo);
+            $from = getSeconds($timeIntervalFrom);
+            $to = getSeconds($timeIntervalTo);
         } catch (InvalidArgumentException $exception) {
             $passed = false;
 
@@ -46,7 +46,7 @@ for ($i = 0; $i < $testCaseCount; $i++) {
     echo $passed ? 'YES' . PHP_EOL : 'NO' . PHP_EOL;
 }
 
-function getDateTime(string $time): int
+function getSeconds(string $time): int
 {
     [$h, $m, $s] = explode(':', $time);
 
