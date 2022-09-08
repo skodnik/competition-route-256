@@ -26,14 +26,14 @@ for ($i = 0; $i < $testCaseCount; $i++) {
             continue;
         }
 
-        if ($from > $to || key_exists($from, $seconds) || key_exists($to, $seconds)) {
+        if ($from > $to || isset($seconds[$from]) || isset($seconds[$to])) {
             $passed = false;
 
             continue;
         }
 
         for ($secondIterator = $from; $secondIterator <= $to; $secondIterator++) {
-            if (key_exists($secondIterator, $seconds)) {
+            if (isset($seconds[$secondIterator])) {
                 $passed = false;
 
                 continue;
