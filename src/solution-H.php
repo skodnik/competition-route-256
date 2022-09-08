@@ -37,5 +37,7 @@ for ($i = 0; $i < $testCaseCount; $i++) {
         echo $developerIndex . ' ' . $desired . PHP_EOL;
     }
 
-    echo PHP_EOL;
+    if ($i != $testCaseCount - 1) { // костыль для тестов
+        echo PHP_EOL;
+    }
 }
