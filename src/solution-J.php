@@ -8,9 +8,9 @@ for ($i = 0; $i < $testCaseCount; $i++) {
     $timeIntervalsCount = readline();
 
     $passed = true;
-    $intervals = [];
+    $seconds = [];
 
-    for ($i1 = 0; $i1 < $timeIntervalsCount; $i1++) {
+    for ($intervalIterator = 0; $intervalIterator < $timeIntervalsCount; $intervalIterator++) {
         [$timeIntervalFrom, $timeIntervalTo] = explode('-', readline());
 
         if (!$passed) {
@@ -26,57 +26,20 @@ for ($i = 0; $i < $testCaseCount; $i++) {
             continue;
         }
 
-        if ($from > $to) {
+        if ($from > $to || key_exists($from, $seconds) || key_exists($to, $seconds)) {
             $passed = false;
 
             continue;
         }
 
-        $intervals[$i1] = [
-            'from' => $from,
-            'to' => $to,
-        ];
-    }
+        for ($secondIterator = $from; $secondIterator <= $to; $secondIterator++) {
+            if (key_exists($secondIterator, $seconds)) {
+                $passed = false;
 
-    if ($passed) {
-        $intervalsCount = count($intervals);
-
-        foreach ($intervals as $index => $interval) {
-            if ($index < $intervalsCount) {
-                for ($i2 = $index + 1; $i2 < $intervalsCount; $i2++) {
-                    $matchesFrom = $interval['from'] == $intervals[$i2]['from'];
-                    $matchesTo = $interval['to'] == $intervals[$i2]['to'];
-
-                    $fromInIntervalOut =
-                        $interval['from'] >= $intervals[$i2]['from'] &&
-                        $interval['from'] <= $intervals[$i2]['to'];
-
-                    $toInIntervalOut =
-                        $interval['to'] <= $intervals[$i2]['to'] &&
-                        $interval['to'] >= $intervals[$i2]['from'];
-
-                    $fromInIntervalIn =
-                        $intervals[$i2]['from'] >= $interval['from'] &&
-                        $intervals[$i2]['from'] <= $interval['to'] ;
-
-                    $toInIntervalIn =
-                        $intervals[$i2]['to'] <= $interval['to'] &&
-                        $intervals[$i2]['to'] >= $interval['from'] ;
-
-                    if (
-                        $matchesFrom ||
-                        $matchesTo ||
-                        $fromInIntervalIn ||
-                        $toInIntervalIn ||
-                        $fromInIntervalOut ||
-                        $toInIntervalOut
-                    ) {
-                        $passed = false;
-
-                        break;
-                    }
-                }
+                continue;
             }
+
+            $seconds[$secondIterator] = $intervalIterator;
         }
     }
 
