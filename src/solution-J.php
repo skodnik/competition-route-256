@@ -11,11 +11,13 @@ for ($i = 0; $i < $testCaseCount; $i++) {
     $seconds = [];
 
     for ($intervalIterator = 0; $intervalIterator < $timeIntervalsCount; $intervalIterator++) {
-        [$timeIntervalFrom, $timeIntervalTo] = explode('-', readline());
+        $interval = readline();
 
         if (!$passed) {
             continue;
         }
+
+        [$timeIntervalFrom, $timeIntervalTo] = explode('-', $interval);
 
         try {
             $from = getSeconds($timeIntervalFrom);
@@ -51,7 +53,7 @@ function getSeconds(string $time): int
     [$h, $m, $s] = explode(':', $time);
 
     if ($h >= 0 && $h < 24 && $m >= 0 && $m < 60 && $s >= 0 && $s < 60) {
-        return ((int)$h * 3600) + ((int)$m * 60) + (int)$s;
+        return (int)$h * 3600 + (int)$m * 60 + (int)$s;
     }
 
     throw new InvalidArgumentException('Invalid time!');
