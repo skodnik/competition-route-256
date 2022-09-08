@@ -51,7 +51,7 @@ function getSeconds(string $time): int
     [$h, $m, $s] = explode(':', $time);
 
     if ($h >= 0 && $h < 24 && $m >= 0 && $m < 60 && $s >= 0 && $s < 60) {
-        return ((int)$h * 60 * 60) + ((int)$m * 60) + (int)$s;
+        return ((int)$h * 3600) + ((int)$m * 60) + (int)$s;
     }
 
     throw new InvalidArgumentException('Invalid time!');
