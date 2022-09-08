@@ -12,8 +12,8 @@ SRC_DIR="./src"
 ((FAILED = 0))
 
 function execute() {
-    REFERENCE="${TMP_DIR}/task-${1}/${2}.reference"
-    ANSWER="${TMP_DIR}/task-${1}/${2}.answer"
+    REFERENCE="${TMP_DIR}/task-${1}/${2}.ref"
+    ANSWER="${TMP_DIR}/task-${1}/${2}.ans"
 
     mkdir -p "${TMP_DIR}/task-${1}/"
     php "${SRC_DIR}/solution-${1}.php" <"${SMP_DIR}/task-${1}/${2}" >"${ANSWER}"
