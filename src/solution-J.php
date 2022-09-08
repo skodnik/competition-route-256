@@ -33,8 +33,8 @@ for ($i = 0; $i < $testCaseCount; $i++) {
         }
 
         $intervals[$i1] = [
-            'from' => $from->getTimestamp(),
-            'to' => $to->getTimestamp(),
+            'from' => $from,
+            'to' => $to,
         ];
     }
 
@@ -83,7 +83,7 @@ for ($i = 0; $i < $testCaseCount; $i++) {
     echo $passed ? 'YES' . PHP_EOL : 'NO' . PHP_EOL;
 }
 
-function getDateTime(string $time): DateTimeImmutable
+function getDateTime(string $time): int
 {
     $dateTime = DateTimeImmutable::createFromFormat(
         'Y.m.d H:i:s',
@@ -94,5 +94,5 @@ function getDateTime(string $time): DateTimeImmutable
         throw new InvalidArgumentException('Invalid time!');
     }
 
-    return $dateTime;
+    return $dateTime->getTimestamp();
 }
