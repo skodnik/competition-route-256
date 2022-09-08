@@ -31,8 +31,7 @@ if [ -z "$2" ]; then
         fi
 
         printf "%b" "\n----------------\n\n"
-        # shellcheck disable=SC2086
-        time execute "$1" $filename
+        time execute "$1" "$filename"
     done
 
     exit 0
