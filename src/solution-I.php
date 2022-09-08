@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-$testCaseCount = readline();
+$stdin = fopen('php://stdin', 'r');
+
+$testCaseCount = quickReadline($stdin);
 
 for ($i = 0; $i < $testCaseCount; $i++) {
-    $daysCount = readline();
-    $tasks = explode(' ', readline());
+    $daysCount = quickReadline($stdin);
+    $tasks = explode(' ', quickReadline($stdin));
 
     $continuously = true;
     $tasksValueCount = array_count_values($tasks);
@@ -28,3 +30,14 @@ for ($i = 0; $i < $testCaseCount; $i++) {
 
     echo $continuously ? 'YES' . PHP_EOL : 'NO' . PHP_EOL;
 }
+
+function quickReadline($stdin): ?string
+{
+    if ($line = fgets($stdin)) {
+        return rtrim($line, "\r\n");
+    }
+
+    return null;
+}
+
+fclose($stdin);

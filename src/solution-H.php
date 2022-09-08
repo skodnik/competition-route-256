@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-$testCaseCount = readline();
+$stdin = fopen('php://stdin', 'r');
+
+$testCaseCount = quickReadline($stdin);
 
 for ($i = 0; $i < $testCaseCount; $i++) {
-    $developersCount = readline();
-    $developersGrade = explode(' ', readline());
+    $developersCount = quickReadline($stdin);
+    $developersGrade = explode(' ', quickReadline($stdin));
     $developersGrade = array_combine(range(1, count($developersGrade)), $developersGrade);
 
     foreach ($developersGrade as $developerIndex => $developerGrade) {
@@ -41,3 +43,14 @@ for ($i = 0; $i < $testCaseCount; $i++) {
         echo PHP_EOL;
     }
 }
+
+function quickReadline($stdin): ?string
+{
+    if ($line = fgets($stdin)) {
+        return rtrim($line, "\r\n");
+    }
+
+    return null;
+}
+
+fclose($stdin);

@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
-$testCaseCount = readline();
+$stdin = fopen('php://stdin', 'r');
+
+$testCaseCount = quickReadline($stdin);
 
 for ($i = 0; $i < $testCaseCount; $i++) {
-    $goodsCount = readline();
+    $goodsCount = quickReadline($stdin);
     $total = 0;
 
-    $goodsPrice = explode(' ', readline());
+    $goodsPrice = explode(' ', quickReadline($stdin));
 
     asort($goodsPrice);
 
@@ -23,3 +25,14 @@ for ($i = 0; $i < $testCaseCount; $i++) {
 
     echo $total . PHP_EOL;
 }
+
+function quickReadline($stdin): ?string
+{
+    if ($line = fgets($stdin)) {
+        return rtrim($line, "\r\n");
+    }
+
+    return null;
+}
+
+fclose($stdin);

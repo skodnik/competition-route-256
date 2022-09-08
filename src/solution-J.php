@@ -2,16 +2,18 @@
 
 declare(strict_types=1);
 
-$testCaseCount = readline();
+$stdin = fopen('php://stdin', 'r');
 
-for ($i = 0; $i < $testCaseCount; $i++) {
-    $timeIntervalsCount = readline();
+$count = quickReadline($stdin);
+
+for ($i = 0; $i < $count; $i++) {
+    $timeIntervalsCount = quickReadline($stdin);
 
     $passed = true;
     $seconds = [];
 
     for ($intervalIterator = 0; $intervalIterator < $timeIntervalsCount; $intervalIterator++) {
-        $interval = readline();
+        $interval = quickReadline($stdin);
 
         if (!$passed) {
             continue;
@@ -58,3 +60,14 @@ function getSeconds(string $time): int
 
     throw new InvalidArgumentException('Invalid time!');
 }
+
+function quickReadline($stdin): ?string
+{
+    if ($line = fgets($stdin)) {
+        return rtrim($line, "\r\n");
+    }
+
+    return null;
+}
+
+fclose($stdin);

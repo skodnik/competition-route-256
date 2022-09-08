@@ -11,10 +11,9 @@ SRC_DIR="./src"
 function execute() {
 
     mkdir -p ${TMP_DIR}/task-"$1"-tests/ &&
-        tr -d '\015' <${SMP_DIR}/task-"$1"-tests/"$2" >${TMP_DIR}/task-"$1"-tests/"$2"LF &&
-        cat ${TMP_DIR}/task-"$1"-tests/"$2"LF | php ${SRC_DIR}/solution-"$1".php >${TMP_DIR}/task-"$1"-tests/"$2"LF.answer &&
-        tr -d '\015' <${SMP_DIR}/task-"$1"-tests/"$2".a >${TMP_DIR}/task-"$1"-tests/"$2"LF.reference &&
-        diff ${TMP_DIR}/task-"$1"-tests/"$2"LF.answer ${TMP_DIR}/task-"$1"-tests/"$2"LF.reference &&
+        cat ${SMP_DIR}/task-"$1"-tests/"$2" | php ${SRC_DIR}/solution-"$1".php >${TMP_DIR}/task-"$1"-tests/"$2".answer &&
+        tr -d '\015' <${SMP_DIR}/task-"$1"-tests/"$2".a >${TMP_DIR}/task-"$1"-tests/"$2".reference &&
+        diff ${TMP_DIR}/task-"$1"-tests/"$2".answer ${TMP_DIR}/task-"$1"-tests/"$2".reference &&
         printf "%b" "${GREEN}${1}-${2} passed${RESET}\n" || printf "%b" "\n${RED}${1}-${2} failed${RESET}\n"
 }
 
