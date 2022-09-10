@@ -14,16 +14,18 @@ SRC_DIR="./src"
 function execute() {
     REFERENCE="${TMP_DIR}/task-${1}/${2}.ref"
     ANSWER="${TMP_DIR}/task-${1}/${2}.ans"
+    DIFF="${TMP_DIR}/task-${1}/${2}.diff"
 
     mkdir -p "${TMP_DIR}/task-${1}/"
     php "${SRC_DIR}/solution-${1}.php" <"${SMP_DIR}/task-${1}/${2}" >"${ANSWER}"
     tr -d '\015' <"${SMP_DIR}/task-${1}/${2}.a" >"${REFERENCE}"
 
-    if diff -c "${ANSWER}" "${REFERENCE}" >"${TMP_DIR}/task-${1}/${2}.diff"; then
+    if diff -c "${ANSWER}" "${REFERENCE}" >"${DIFF}"; then
         printf "%b" "${GREEN}${1}-${2} passed${RESET}\n"
         ((PASSED++))
     else
-        printf "%b" "${RED}${1}-${2} failed${RESET}\n"
+        cat "${DIFF}"
+        printf "%b" "\n${RED}${1}-${2} failed${RESET}\n"
         ((FAILED++))
     fi
 }
